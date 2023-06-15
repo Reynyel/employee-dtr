@@ -4,7 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECEAEA"
     tools:context=".homepage">
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="139dp"
+        android:layout_height="199dp"
+        android:backgroundTint="#FFFFFF"
+        android:paddingTop="60dp"
+        android:text="Time In"
+        android:textColor="#4D4B4B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.298" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="139dp"
+        android:layout_height="199dp"
+        android:backgroundTint="#FFFFFF"
+        android:paddingTop="60dp"
+        android:text="Time out"
+        android:textColor="#4D4B4B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.298" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="139dp"
+        android:layout_height="199dp"
+        android:backgroundTint="#FFFFFF"
+        android:paddingTop="60dp"
+        android:text="Time In"
+        android:textColor="#4D4B4B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.787" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="139dp"
+        android:layout_height="199dp"
+        android:backgroundTint="#FFFFFF"
+        android:paddingTop="60dp"
+        android:text="Time In"
+        android:textColor="#4D4B4B"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.787" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -17,4 +78,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ellipse_1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
