@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.journeyapps.barcodescanner.ScanOptions;
+
 public class homepage extends AppCompatActivity {
 
     ImageButton tin_scan; //global variable for timein scan
@@ -23,6 +25,10 @@ public class homepage extends AppCompatActivity {
     }
 
     private void scanCode(){
-        
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
     }
 }
