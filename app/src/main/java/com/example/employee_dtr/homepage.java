@@ -13,9 +13,16 @@ import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class homepage extends AppCompatActivity {
 
     ImageButton tin_scan; //global variable for timein scan
+    Calendar calendar;
+    Date date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +36,7 @@ public class homepage extends AppCompatActivity {
 
     }
 
-    private void scanCode(){
+    private void scanCode(){ //Scan code
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up to flash");
         options.setBeepEnabled(true);
@@ -41,7 +48,16 @@ public class homepage extends AppCompatActivity {
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if(result.getContents() != null){
             AlertDialog.Builder builder = new AlertDialog.Builder(homepage.this);
-            builder.setTitle("Time in");
+
+            //Get date and time
+            calendar = Calendar.getInstance();
+            date = calendar.getTime();
+
+            // Format the date and time
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+            String formattedDateTime = dateFormat.format(date);
+
+            builder.setTitle(formattedDateTime);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
