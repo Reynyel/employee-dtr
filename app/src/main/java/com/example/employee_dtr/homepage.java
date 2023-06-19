@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.database.sqlite.SQLiteDatabase; //import for database
+import android.widget.Toast;
 
 import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -28,6 +29,7 @@ public class homepage extends AppCompatActivity {
     ImageButton tin_scan; //global variable for timein scan
     ImageButton tout_scan;//global variable for timeout scan
     Button view;
+    Button delete;
 
     SQLiteDatabase db; //global variable for database
 
@@ -49,6 +51,7 @@ public class homepage extends AppCompatActivity {
         tin_scan=findViewById(R.id.timeinBtn);
         tout_scan=findViewById(R.id.timeoutBtn);
         view = findViewById(R.id.viewBtn);
+        delete = findViewById(R.id.deleteBtn);
 
         db = openOrCreateDatabase("EmployeeDTR", Context.MODE_PRIVATE, null); //creates the database
         db.execSQL("CREATE TABLE IF NOT EXISTS employee(employee_id VARCHAR, employee_name VARCHAR, time_in VARCHAR, time_out VARCHAR);");
@@ -65,6 +68,10 @@ public class homepage extends AppCompatActivity {
         view.setOnClickListener(view ->{
             getDbContents();
         });
+
+        delete.setOnClickListener(view ->{
+            deleteRecord();
+        } );
     }
 
     private void scanTimeIn(){ //Scan code for time in
@@ -108,6 +115,12 @@ public class homepage extends AppCompatActivity {
         String message = stringBuilder.toString();
         showMessageDialog(message);
     }
+
+    public void deleteRecord(){
+        db.execSQL("DELETE FROM employee");
+        Toast.makeText(getApplicationContext(), "Record cleared", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void showMessageDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -154,7 +167,7 @@ public class homepage extends AppCompatActivity {
             date = calendar.getTime();
 
             // Format the date and time
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy | hh:mm:ss a");
             String formattedDateTime = dateFormat.format(date);
 
             // Insert time-out into the database
