@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 public class homepage extends AppCompatActivity {
 
     ImageButton tin_scan; //global variable for timein scan
+    ImageButton tout_scan;//global variable for timeout scan
+
     Calendar calendar;
     Date date;
 
@@ -29,24 +31,42 @@ public class homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         tin_scan=findViewById(R.id.timeinBtn);
+        tout_scan=findViewById(R.id.timeoutBtn);
 
         tin_scan.setOnClickListener(view -> {
-            scanCode();
+            scanTimeIn();
         });
+
+        tout_scan.setOnClickListener(view -> {
+            scanTimeOut();
+        });
+
+
 
     }
 
-    private void scanCode(){ //Scan code
+    private void scanTimeIn(){ //Scan code
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up to flash");
         options.setBeepEnabled(true);
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureAct.class);
-        barLauncher.launch(options);
+        timeIn.launch(options);
     }
 
-    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
-        if(result.getContents() != null){
+    private void scanTimeOut(){ //Scan code
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        timeOut.launch(options);
+    }
+
+
+
+    ActivityResultLauncher<ScanOptions> timeIn = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(homepage.this);
 
             //Get date and time
@@ -57,7 +77,29 @@ public class homepage extends AppCompatActivity {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
             String formattedDateTime = dateFormat.format(date);
 
-            builder.setTitle(formattedDateTime);
+                builder.setTitle("Time in: " + formattedDateTime); //returns the date and time
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
+            }
+    });
+
+    ActivityResultLauncher<ScanOptions> timeOut = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(homepage.this);
+
+            //Get date and time
+            calendar = Calendar.getInstance();
+            date = calendar.getTime();
+
+            // Format the date and time
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+            String formattedDateTime = dateFormat.format(date);
+
+            builder.setTitle("Time out: " + formattedDateTime); //returns the date and time
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
