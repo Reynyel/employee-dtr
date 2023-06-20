@@ -92,7 +92,7 @@ public class homepage extends AppCompatActivity {
         timeOut.launch(options);
     }
 
-    private void getDbContents(){
+    private void getDbContents(){ //Displays table content
         Cursor c = db.rawQuery("SELECT * FROM employee", null);
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -116,7 +116,7 @@ public class homepage extends AppCompatActivity {
         showMessageDialog(message);
     }
 
-    public void deleteRecord(){
+    public void deleteRecord(){ //Clears table
         db.execSQL("DELETE FROM employee");
         Toast.makeText(getApplicationContext(), "Record cleared", Toast.LENGTH_SHORT).show();
     }
