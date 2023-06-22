@@ -29,7 +29,6 @@ public class homepage extends AppCompatActivity {
     ImageButton tin_scan; //global variable for timein scan
     ImageButton tout_scan;//global variable for timeout scan
     Button view;
-    Button delete;
 
     SQLiteDatabase db; //global variable for database
 
@@ -51,7 +50,6 @@ public class homepage extends AppCompatActivity {
         tin_scan=findViewById(R.id.timeinBtn);
         tout_scan=findViewById(R.id.timeoutBtn);
         view = findViewById(R.id.viewBtn);
-        delete = findViewById(R.id.deleteBtn);
 
         db = openOrCreateDatabase("EmployeeDTR", Context.MODE_PRIVATE, null); //creates the database
         db.execSQL("CREATE TABLE IF NOT EXISTS employee(employee_id VARCHAR, employee_name VARCHAR, time_in VARCHAR, time_out VARCHAR);");
@@ -69,9 +67,6 @@ public class homepage extends AppCompatActivity {
             getDbContents();
         });
 
-        delete.setOnClickListener(view ->{
-            deleteRecord();
-        } );
     }
 
     private void scanTimeIn(){ //Scan code for time in
@@ -148,14 +143,14 @@ public class homepage extends AppCompatActivity {
             db.execSQL("INSERT INTO employee (employee_id, employee_name, time_in, time_out) VALUES (?, ?, ?, ?)",
                     new String[]{passId, passName, formattedDateTime, ""});
 
-                builder.setTitle("Time in: " + formattedDateTime); //returns the date and time
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).show();
-            }
+            builder.setTitle("Time in: " + formattedDateTime); //returns the date and time
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
+        }
     });
 
     ActivityResultLauncher<ScanOptions> timeOut = registerForActivityResult(new ScanContract(), result -> {
